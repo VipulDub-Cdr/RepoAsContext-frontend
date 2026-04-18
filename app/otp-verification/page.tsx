@@ -1,11 +1,11 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 import { NetworkBackground } from "@/components/NetworkBackground";
 
-export default function OtpVerification() {
+function OtpForm() {
     const [otpInput, setOtpInput] = useState("");
     const [toaster, setToaster] = useState(false);
     const [toasterData, setToasterData] = useState("");
@@ -111,5 +111,13 @@ export default function OtpVerification() {
                 </div>
             </div>
         </div>
+    )
+}
+
+export default function OtpVerification() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-background flex justify-center items-center text-foreground">Loading...</div>}>
+            <OtpForm />
+        </Suspense>
     )
 }
