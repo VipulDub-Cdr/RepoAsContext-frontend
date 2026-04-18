@@ -1,25 +1,22 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Toaster, useToast } from "@/components/Toaster";
 
 import { NetworkBackground } from "@/components/NetworkBackground";
 
 export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [toaster, setToaster] = useState(false);
-    const [toasterData, setToasterData] = useState("");
-    const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { toast, showToast, dismissToast } = useToast();
 
     const router = useRouter();
 
     async function handleSignup() {
         if (!email || !password) {
-            setIsSuccess(false);
-            setToasterData("Please fill in all fields.");
-            setToaster(true);
+            showToast("Please fill in all fields.", "error");
             return;
         }
 
@@ -35,21 +32,13 @@ export default function Signup() {
             const data = await res.json();
 
             if (data.success) {
-                setIsSuccess(true);
+                showToast(data.message || "Account created! Check your email.", "success");
                 router.push(`/otp-verification?email=${encodeURIComponent(email)}`);
             } else {
-                setIsSuccess(false);
+                showToast(data.message || "Something went wrong. Please try again.", "error");
             }
-
-            setToasterData(data.message);
-            setToaster(true);
-            setTimeout(() => {
-                setToaster(false);
-            }, 6000)
         } catch (err) {
-            setIsSuccess(false);
-            setToasterData("Failed to connect to server.");
-            setToaster(true);
+            showToast("Failed to connect to server. Please try again.", "error");
         } finally {
             setIsLoading(false);
         }
@@ -69,12 +58,6 @@ export default function Signup() {
             <div className="bg-card border border-border-dim rounded-2xl w-full max-w-md p-8 md:p-10 relative z-10 shadow-2xl mx-4">
                 <h2 className="text-3xl font-medium tracking-tight mb-2">Create an account</h2>
                 <p className="text-muted-grey font-light text-[15px] mb-8">Join RepoAsContext to upgrade your workflow.</p>
-
-                {toaster && (
-                    <div className={`mb-6 p-3 animate-pulse-subtle rounded-lg border text-sm ${isSuccess ? 'bg-[#1a2e22] border-[#2e5c41] text-[#6bb28b]' : 'bg-[#2a1313] border-[#5c2e2e] text-[#f87171]'}`}>
-                        {toasterData}
-                    </div>
-                )}
 
                 <div className="flex flex-col gap-5">
                     <div>
@@ -110,6 +93,8 @@ export default function Signup() {
                     </div>
                 </div>
             </div>
+
+            <Toaster toast={toast} onDismiss={dismissToast} />
         </div>
     )
 }

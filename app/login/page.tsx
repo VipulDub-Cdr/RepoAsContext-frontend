@@ -1,21 +1,22 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Toaster, useToast } from "@/components/Toaster";
 
 import { NetworkBackground } from "@/components/NetworkBackground";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { toast, showToast, dismissToast } = useToast();
 
     const router = useRouter();
 
     async function handleSignup() {
         if (!email || !password) {
-            setIsSuccess(false);
+            showToast("Please fill in all fields.", "error");
             return;
         }
 
@@ -31,14 +32,14 @@ export default function Login() {
             const data = await res.json();
 
             if (data.success) {
-                setIsSuccess(true);
-                localStorage.setItem("refrax-token", data.token)
+                localStorage.setItem("refrax-token", data.token);
+                showToast(data.message || "Signed in successfully!", "success");
                 router.push(`/chat`);
             } else {
-                setIsSuccess(false);
+                showToast(data.message || "Invalid credentials. Please try again.", "error");
             }
         } catch (err) {
-            setIsSuccess(false);
+            showToast("Failed to connect to server. Please try again.", "error");
         } finally {
             setIsLoading(false);
         }
@@ -92,6 +93,8 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+
+            <Toaster toast={toast} onDismiss={dismissToast} />
         </div>
     )
 }

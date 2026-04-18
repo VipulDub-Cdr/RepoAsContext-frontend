@@ -1,14 +1,15 @@
 "use client"
-import { useState, useEffect, useRef, Suspense } from "react"
+import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Toaster, useToast } from "@/components/Toaster";
 
 import { NetworkBackground } from "@/components/NetworkBackground";
 
 function OtpForm() {
     const [otpInput, setOtpInput] = useState("");
-    const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { toast, showToast, dismissToast } = useToast();
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -16,7 +17,7 @@ function OtpForm() {
 
     async function handleSubmit() {
         if (!otpInput) {
-            setIsSuccess(false);
+            showToast("Please enter your verification code.", "error");
             return;
         }
 
@@ -33,13 +34,13 @@ function OtpForm() {
             const data = await res.json();
 
             if (data.success) {
-                setIsSuccess(true);
+                showToast(data.message || "Email verified! Redirecting to login...", "success");
                 router.push("/login");
             } else {
-                setIsSuccess(false);
+                showToast(data.message || "Invalid or expired code. Please try again.", "error");
             }
         } catch (err) {
-            setIsSuccess(false);
+            showToast("Failed to connect to server. Please try again.", "error");
         } finally {
             setIsLoading(false);
         }
@@ -92,6 +93,8 @@ function OtpForm() {
                     </div>
                 </div>
             </div>
+
+            <Toaster toast={toast} onDismiss={dismissToast} />
         </div>
     )
 }
