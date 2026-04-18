@@ -54,7 +54,7 @@ export default function Home() {
                         <div className="w-6 h-6 bg-foreground rounded-md flex items-center justify-center rotate-45 shrink-0 scale-75">
                             <div className="w-2 h-2 bg-background rounded-full"></div>
                         </div>
-                        <span className="font-medium text-xl tracking-tight text-foreground">Refrax</span>
+                        <span className="font-medium text-xl tracking-tight text-foreground">RepoAsContext</span>
                     </Link>
 
                     {/* Center Links & Mega Menu */}
@@ -136,7 +136,7 @@ export default function Home() {
             <section className="w-full max-w-[1100px] mx-auto py-20 px-6 flex flex-col gap-8 relative z-30">
                 <div className="max-w-full mb-16">
                     <h2 className="text-[48px] sm:text-[64px] font-medium leading-[1.1] tracking-tight flex justify-center items-center">
-                        You can also <br /> embed Refrax
+                        You can also <br /> embed RepoAsContext
                     </h2>
                     <p className="mt-6 text-[18px] text-muted-grey font-light flex justify-center items-center">
                         Add AI analytics to your product with our API and React components.
@@ -209,7 +209,7 @@ export default function Home() {
                                 <img src="https://i.pravatar.cc/150?u=slack" className="w-7 h-7 rounded-md" />
                                 <div>
                                     <div className="font-medium text-foreground mb-0.5 text-[13px]">Kiara Ghosh</div>
-                                    <div className="text-[13px] text-muted-grey"><span className="text-blue-400">@Refrax</span> Where is the auth token stored dynamically?</div>
+                                    <div className="text-[13px] text-muted-grey"><span className="text-blue-400">@RepoAsContext</span> Where is the auth token stored dynamically?</div>
                                 </div>
                             </div>
 
@@ -279,7 +279,7 @@ export default function Home() {
                 <div className="max-w-[800px] mb-20 relative">
                     <h2 className="text-[56px] sm:text-[80px] font-medium leading-[1.1] tracking-tight">
                         <span className="text-primary-green relative inline-block">
-                            Refrax.
+                            RepoAsContext.
                             {/* Subtle glowing sparks behind refrax */}
                             <div className="absolute inset-0 bg-[#6bb28b] blur-[100px] opacity-80 z-0 rounded-full scale-[1.8] animate-pulse-subtle"></div>
                         </span> <br />
@@ -324,7 +324,7 @@ export default function Home() {
                                         <div className="w-5 h-5 bg-foreground rounded flex items-center justify-center rotate-45 scale-[0.6]">
                                             <div className="w-1.5 h-1.5 bg-background rounded-full"></div>
                                         </div>
-                                        Refrax AI • <span className="text-muted-grey font-normal">Just now</span>
+                                        RepoAsContext • <span className="text-muted-grey font-normal">Just now</span>
                                     </div>
                                     <div className="text-foreground text-[15px] space-y-4">
                                         <p>I tracked down the issue. In your <code className="bg-accent-bg px-1.5 py-0.5 rounded text-[13px]">stripeHandler.js</code> file, the exact exception occurs because the signature payload is parsed incorrectly.</p>
@@ -378,7 +378,7 @@ export default function Home() {
                             <div className="bg-[#ff6600] text-white w-5 h-5 flex items-center justify-center font-bold text-[12px] shrink-0">Y</div>
                             <span>YCombinator</span>
                             <span className="text-muted-grey">|</span>
-                            <span>Refrax Inc</span>
+                            <span>RepoAsContext Inc</span>
                         </div>
                     </div>
 

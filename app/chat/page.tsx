@@ -389,7 +389,7 @@ export default function Chat() {
             {/* ─── Left Panel: Recents ──────────────────────────────────── */}
             <aside className="w-[260px] h-full bg-card border-r border-border-dim flex flex-col shrink-0">
                 <div className="p-4 flex items-center justify-between pointer-events-none">
-                    <span className="text-[17px] font-medium text-white select-none pointer-events-auto cursor-pointer" onClick={handleNewChat}>Refrax AI</span>
+                    <span className="text-[17px] font-medium text-white select-none pointer-events-auto cursor-pointer" onClick={handleNewChat}>RepoAsContext</span>
                 </div>
 
                 <div className="px-3 pb-2">
@@ -469,7 +469,7 @@ export default function Chat() {
 
                 {/* User Info & Logout */}
                 <div className="mt-auto p-3 border-t border-border-dim/50 shrink-0">
-                    <button 
+                    <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-foreground/90 hover:text-foreground hover:bg-[#2d2e2f] transition-colors cursor-pointer"
                     >
@@ -532,7 +532,7 @@ export default function Chat() {
                                     <div className="h-4 w-[75%] bg-[#2d2e2f] rounded"></div>
                                 </div>
                             </div>
-                            
+
                             {/* Fake User Message */}
                             <div className="flex flex-col gap-2 mt-4">
                                 <div className="flex items-center gap-2">
@@ -558,7 +558,7 @@ export default function Chat() {
 
                                     {msg.role === "error" ? (
                                         <div className="flex items-center gap-2 text-[#f87171] text-[14px]">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                                             {msg.content}
                                         </div>
                                     ) : msg.role === "user" ? (
@@ -657,7 +657,7 @@ export default function Chat() {
                         </div>
                     </div>
                     <div className="text-center mt-2.5">
-                        <span className="text-[11px] text-muted-grey">Refrax AI can make mistakes. Verify important code.</span>
+                        <span className="text-[11px] text-muted-grey">RepoAsContext can make mistakes. Verify important code.</span>
                     </div>
                 </div>
             </main>
