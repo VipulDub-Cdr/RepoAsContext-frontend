@@ -707,7 +707,7 @@ export default function Chat() {
                             <button
                                 onClick={handleFetchTree}
                                 disabled={isFetchingTree || !owner || !repo}
-                                className="w-full bg-[#2d2e2f] hover:bg-muted-grey/20 text-foreground font-medium py-2 rounded-lg text-sm transition-colors mt-1 disabled:opacity-50 cursor-pointer"
+                                className="w-full bg-[#2d2e2f] bg-white dark:hover:bg-muted-grey/20 text-black font-medium py-2 rounded-lg text-sm transition-colors mt-1 disabled:opacity-50 cursor-pointer"
                             >
                                 {isFetchingTree ? "Connecting..." : "Connect Repository"}
                             </button>

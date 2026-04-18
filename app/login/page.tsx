@@ -61,10 +61,10 @@ export default function Login() {
             <NetworkBackground />
 
             <Link href="/" className="absolute top-8 left-8 sm:top-12 sm:left-12 flex items-center gap-2 z-50 group">
-                <div className="w-6 h-6 bg-foreground rounded-md flex items-center justify-center rotate-45 shrink-0 scale-75 transition-transform group-hover:scale-90">
-                    <div className="w-2 h-2 bg-[#0A0A0A] rounded-full"></div>
+                <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center rotate-45 shrink-0 scale-75 transition-transform group-hover:scale-90">
+                    <div className="w-2 h-2 bg-[#0A0A0A] rounded-full bg-white"></div>
                 </div>
-                <span className="font-semibold text-xl tracking-tight text-black dark:text-white">RepoAsContext</span>
+                <span className="font-semibold text-xl tracking-tight text-neutral-500">RepoAsContext</span>
             </Link>
 
             <div className="bg-card border border-border-dim rounded-2xl w-full max-w-md p-8 md:p-10 relative z-10 shadow-2xl mx-4">

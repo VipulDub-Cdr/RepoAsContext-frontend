@@ -13,7 +13,6 @@ const RScript = Arimo({
 });
 
 
-// ─── DATA PILLS ─────────────────────────────────────────────────────────────
 const MOCK_QUESTIONS_ROW_1 = [
     { text: "Where is the Stripe webhook logic located?", img: "https://i.pravatar.cc/150?u=1" },
     { text: "Explain the current Redux authentication flow.", img: "https://i.pravatar.cc/150?u=2" },
@@ -51,10 +50,10 @@ export default function Home() {
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="w-6 h-6 bg-foreground rounded-md flex items-center justify-center rotate-45 shrink-0 scale-75">
+                        {/* <div className="w-6 h-6 bg-foreground rounded-md flex items-center justify-center rotate-45 shrink-0 scale-75">
                             <div className="w-2 h-2 bg-background rounded-full"></div>
-                        </div>
-                        <span className="font-medium text-xl tracking-tight text-foreground">RepoAsContext</span>
+                        </div> */}
+                        <span className="font-medium text-lg tracking-tight text-foreground font-medium">RepoAsContext</span>
                     </Link>
 
                     {/* Center Links & Mega Menu */}
@@ -85,11 +84,11 @@ export default function Home() {
                 />
 
                 <div className="relative z-10 flex flex-col items-center mt-[-5vh] pt-16">
-                    <h1 className="text-[58px] sm:text-[80px] md:text-[80px] leading-[1.05] tracking-tight text-foreground max-w-[900px]">
-                        Query your <br /> <span className={`text-muted-foreground`}>codebase</span> in <br /> plain english
+                    <h1 className="text-[58px] sm:text-[80px] md:text-[70px] leading-[1.05] tracking-tight text-foreground max-w-[900px]">
+                        Query Public<br /> <span className="text-neutral-500">Repositories</span> with<span className={`text-muted-foreground`}> <br />your prompts</span> <br />
                     </h1>
                     <p className="mt-8 text-[20px] text-muted-grey font-light max-w-lg leading-relaxed" style={{ transitionDelay: "100ms" }}>
-                        Add an AI developer bot to <br /> dramatically reduce code exploration burden.
+                        Inject GitHub repository files directly into LLM prompts and unlock smarter, context-aware outputs.
                     </p>
                     <Link href="/login" className="mt-12" style={{ transitionDelay: "200ms" }}>
                         <div className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-transparent border border-border-dim text-foreground text-[15px] font-medium rounded-full overflow-hidden hover:border-muted-foreground bg-background/50 backdrop-blur-sm cursor-pointer hover:bg-foreground hover:text-background transition-all delay-100 duration-300">
@@ -135,11 +134,11 @@ export default function Home() {
             {/* BENTO GRID SECTIONS */}
             <section className="w-full max-w-[1100px] mx-auto py-20 px-6 flex flex-col gap-8 relative z-30">
                 <div className="max-w-full mb-16">
-                    <h2 className="text-[48px] sm:text-[64px] font-medium leading-[1.1] tracking-tight flex justify-center items-center">
-                        You can also <br /> embed RepoAsContext
+                    <h2 className="text-[48px] sm:text-[64px] font-medium leading-[1.1] text-center tracking-tight flex justify-center items-center">
+                        Instantly add files from  <br />repositories to your conversations.
                     </h2>
                     <p className="mt-6 text-[18px] text-muted-grey font-light flex justify-center items-center">
-                        Add AI analytics to your product with our API and React components.
+                        Add multiple files as a context to your conversations and get smarter response.
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -150,10 +149,10 @@ export default function Home() {
                         <p className="text-muted-grey font-light text-[15px] mb-8">Including complex codebase AST parsing</p>
 
                         <div className="bg-background border border-border-dim rounded-xl p-5 w-full text-left font-mono text-sm overflow-hidden flex flex-col gap-1 text-muted-grey">
-                            <div><span className="text-primary-green">import</span> {"{"} parseTree {"}"} <span className="text-primary-green">from</span> <span className="text-blue-400">'@refrax/ast'</span>;</div>
-                            <div className="mt-2 text-foreground">const <span className="text-blue-400">results</span> = <span className="text-primary-green">await</span> parseTree(</div>
-                            <div className="pl-4">repoId,</div>
-                            <div className="pl-4">query: <span className="text-blue-400">'Find webhook issues'</span></div>
+                            <div><span className="text-primary-green">const</span> {"{"} GoogleGenerativeAI {"}"} <span className="text-primary-green">=</span> <span className="text-blue-400">require('@google/generative-ai');</span>;</div>
+                            <div className="mt-2 text-foreground">const <span className="text-blue-400">chat</span> = <span className="text-primary-green">model</span> startChat(</div>
+                            <div className="pl-4">history: history,</div>
+                            <div className="pl-4">generationConfig: <span className="text-blue-400">maxOutputTokens: 8192</span></div>
                             <div>);</div>
                             <div className="mt-2 opacity-50">// Mapping 12 dependencies...</div>
                         </div>
@@ -206,10 +205,12 @@ export default function Home() {
                             <div className="font-medium text-[15px] mb-4 text-foreground">#engineering-questions</div>
 
                             <div className="flex gap-3 mb-4">
-                                <img src="https://i.pravatar.cc/150?u=slack" className="w-7 h-7 rounded-md" />
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_8cCCE7E0L4GbbXn9MyInPSJmEb1gjNDO4A&s" className="w-7 h-7 rounded-md" />
                                 <div>
-                                    <div className="font-medium text-foreground mb-0.5 text-[13px]">Kiara Ghosh</div>
+                                    <div className="font-medium text-foreground mb-0.5 text-[13px]">Vipul Dubey</div>
                                     <div className="text-[13px] text-muted-grey"><span className="text-blue-400">@RepoAsContext</span> Where is the auth token stored dynamically?</div>
+                                    <span className="text-[9px] bg-border-dim px-1 py-1 rounded tracking-wide mr-2">./app/chat</span>
+                                    <span className="text-[9px] bg-border-dim px-1 py-1 rounded tracking-wide">./components/authProvider</span>
                                 </div>
                             </div>
 
@@ -218,7 +219,7 @@ export default function Home() {
                                     <div className="w-2 h-2 bg-background rounded-full"></div>
                                 </div>
                                 <div>
-                                    <div className="font-medium text-foreground mb-0.5 text-[13px] flex items-center gap-2">Refrax <span className="text-[9px] bg-border-dim px-1 rounded uppercase tracking-wide">APP</span></div>
+                                    <div className="font-medium text-foreground mb-0.5 text-[13px] flex items-center gap-2">RAC Bot</div>
                                     <div className="text-[13px] text-muted-grey leading-relaxed">It is securely stored in local storage and managed via the NextJS <code className="text-blue-400 bg-border-dim/50 px-1 rounded">authProvider.tsx</code> context chunk.</div>
                                 </div>
                             </div>
@@ -232,42 +233,41 @@ export default function Home() {
             <section className="w-full py-28 flex flex-col items-center text-center px-4 relative bg-background">
                 <div className="max-w-[800px] mb-16">
                     <h2 className="text-[48px] sm:text-[64px] font-medium leading-[1.1] tracking-tight">
-                        You can also <br /> embed Refrax
+                        Modern <br /> Tech Stack
                     </h2>
                     <p className="mt-6 text-[18px] text-muted-grey font-light">
-                        Add AI analytics to your product with our API and React components.
+                        Powered by Next.js, Node.js, Postgres, and Google Gemini AI.
                     </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[1100px] px-6 relative z-30">
                     <div className="bg-card border border-border-dim rounded-3xl p-12 flex flex-col items-center hover:bg-accent-bg cursor-pointer group">
-                        <h3 className="text-2xl font-medium tracking-tight mb-3 group-hover:text-foreground">API</h3>
-                        <p className="text-muted-grey font-light text-[15px] mb-12">Build AI-powered workflows faster</p>
+                        <h3 className="text-2xl font-medium tracking-tight mb-3 group-hover:text-foreground">GitHub API Integration</h3>
+                        <p className="text-muted-grey font-light text-[15px] mb-12">Browse and inject files as LLM context</p>
 
                         <div className="w-[120px] h-[70px] border border-border-dim bg-accent-bg rounded flex items-center justify-center text-primary-green font-mono text-sm tracking-widest relative">
                             {/* Circuit nodes mock */}
                             <div className="absolute -left-2 top-2 w-1 h-1 bg-border-dim"></div>
                             <div className="absolute -left-2 top-4 w-1 h-1 bg-border-dim"></div>
                             <div className="absolute -left-2 top-6 w-1 h-1 bg-border-dim"></div>
-                            API
+                            OCTOKIT
                             {/* Dotted green line connecting to nothing */}
                             <div className="absolute -right-[60px] top-1/2 border-t-2 border-dotted border-primary-green/50 w-[58px]"></div>
                         </div>
                     </div>
 
                     <div className="bg-card border border-border-dim rounded-3xl p-12 flex flex-col items-center hover:bg-accent-bg cursor-pointer group">
-                        <h3 className="text-2xl font-medium tracking-tight mb-3 group-hover:text-foreground">Embed</h3>
-                        <p className="text-muted-grey font-light text-[15px] mb-12">AI-powered dashboards in minutes</p>
+                        <h3 className="text-2xl font-medium tracking-tight mb-3 group-hover:text-foreground">Secure Authentication</h3>
+                        <p className="text-muted-grey font-light text-[15px] mb-12">Email-based OTP verification</p>
 
                         <div className="w-[120px] h-[70px] border border-border-dim bg-[#1a1a1a] rounded p-2 text-left relative flex flex-col gap-1.5 overflow-hidden">
                             <div className="flex gap-1 mb-1">
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#3a3a3a]"></div>
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#3a3a3a]"></div>
-                                <div className="w-1.5 h-1.5 rounded-full bg-[#3a3a3a]"></div>
                             </div>
                             <div className="h-1.5 bg-[#2d2e2f] w-3/4 rounded-full"></div>
-                            <div className="h-1.5 bg-[#2d2e2f] w-1/2 rounded-full"></div>
-                            <div className="h-1.5 bg-[#2d2e2f] w-full rounded-full"></div>
+                            <div className="h-[2px] w-full border-t border-dotted border-[#444] my-0.5"></div>
+                            <div className="h-1.5 bg-primary-green w-1/2 rounded-full"></div>
                         </div>
                     </div>
                 </div>
@@ -291,44 +291,69 @@ export default function Home() {
                 </div>
 
                 {/* Dashboard Mockup - Floating App Card */}
-                <div className=" w-full max-w-[1000px] mx-auto relative z-30">
-                    <div className="bg-[#131313] w-full rounded-2xl border border-border-dim shadow-[0_0_100px_rgba(0,0,0,0.8)] flex overflow-hidden h-[500px]">
-                        {/* Mockup Sidebar */}
-                        <div className="w-[240px] border-r border-border-dim bg-background p-4 hidden md:flex flex-col">
-                            <div className="text-[12px] text-muted-grey font-semibold tracking-wider uppercase mb-4">Repositories</div>
-                            <div className="flex flex-col gap-2">
-                                <div className="text-[14px] text-foreground bg-accent-bg px-3 py-2 rounded-md font-medium">frontend-monorepo</div>
-                                <div className="text-[14px] text-muted-grey px-3 py-2">backend-api</div>
-                                <div className="text-[14px] text-muted-grey px-3 py-2">auth-service</div>
+                <div className=" w-full max-w-[1100px] mx-auto relative z-30">
+                    <div className="bg-background w-full rounded-2xl border border-border-dim shadow-xl flex overflow-hidden h-[600px] text-left">
+
+                        {/* Left Sidebar Mockup */}
+                        <aside className="w-[240px] h-full bg-card border-r border-border-dim flex-col shrink-0 hidden md:flex">
+                            <div className="p-4 flex items-center justify-between">
+                                <span className="text-[17px] font-medium text-white select-none">RepoAsContext</span>
                             </div>
-                        </div>
+                            <div className="px-3 pb-2">
+                                <div className="w-full bg-foreground text-background text-sm font-medium py-2.5 rounded-full flex items-center justify-center gap-2 shadow-sm">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 4V20M4 12H20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                    New Chat
+                                </div>
+                            </div>
+                            <div className="flex-1 px-3 py-2 space-y-4">
+                                <div>
+                                    <div className="text-[11px] font-medium tracking-wide text-muted-grey uppercase px-2 mb-1 pl-3">Today</div>
+                                    <div className="bg-accent-bg text-foreground font-medium text-sm px-3 py-[7px] rounded-lg">Stripe Webhook Bug</div>
+                                    <div className="text-foreground/90 text-sm px-3 py-[7px] rounded-lg">Auth Flow Update</div>
+                                </div>
+                                <div>
+                                    <div className="text-[11px] font-medium tracking-wide text-muted-grey uppercase px-2 mb-1 pl-3 mt-4">Previous 7 Days</div>
+                                    <div className="text-foreground/90 text-sm px-3 py-[7px] rounded-lg">Postgres Connection</div>
+                                </div>
+                            </div>
+                            <div className="p-3 border-t border-border-dim/50">
+                                <div className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-foreground/90">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                    Sign Out
+                                </div>
+                            </div>
+                        </aside>
 
-                        {/* Mockup Main Chat */}
-                        <div className="flex-1 bg-card/50 flex flex-col relative text-left">
-                            <div className="flex-1 p-6 flex flex-col gap-6 pt-12 relative overflow-hidden">
-                                {/* bg gradient for mockup chat */}
-                                <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[#1e2a3b] dark:bg-[#1e2a3b] bg-[#a8c7fa] blur-[150px] opacity-10 pointer-events-none"></div>
-
-                                {/* User query */}
-                                <div className="flex flex-col gap-2 relative z-10">
-                                    <div className="text-[13px] font-medium text-foreground/70 flex items-center gap-2">
-                                        <img src="https://i.pravatar.cc/150?u=11" className="w-5 h-5 rounded-full" alt="avatar" />
-                                        You • <span className="text-muted-grey font-normal">min ago</span>
+                        {/* Center Mockup */}
+                        <main className="flex-1 flex flex-col h-full bg-background relative">
+                            {/* Header */}
+                            <header className="h-[56px] shrink-0 px-6 flex items-center justify-between border-b border-border-dim/50">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-4 rounded-full flex items-center p-0.5 bg-muted-grey/20">
+                                            <div className="w-3 h-3 rounded-full bg-background transform translate-x-0" />
+                                        </div>
+                                        <span className="text-[14px] font-medium text-foreground flex items-center gap-2">Gemini 2.5 Flash</span>
                                     </div>
-                                    <div className="text-foreground text-[15px]">Find the bug causing 500 errors in the payment webhook.</div>
+                                </div>
+                            </header>
+
+                            {/* Chat Area */}
+                            <div className="flex-1 px-8 py-8 flex flex-col gap-6 relative overflow-hidden">
+                                <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto">
+                                    <div className="text-[13px] font-medium text-foreground/90 flex items-center gap-2">
+                                        User <span className="text-muted-grey text-[10px]">•</span> <span className="text-muted-grey font-normal">2 mins ago</span>
+                                    </div>
+                                    <div className="text-foreground text-[15px] leading-[1.6]">Find the bug causing 500 errors in the payment webhook.</div>
                                 </div>
 
-                                {/* Model response */}
-                                <div className="bg-background border border-border-dim rounded-[16px] p-5 w-full flex flex-col gap-4 shadow-sm relative z-10">
-                                    <div className="text-[13px] font-medium text-foreground/70 flex flex-wrap items-center gap-2">
-                                        <div className="w-5 h-5 bg-foreground rounded flex items-center justify-center rotate-45 scale-[0.6]">
-                                            <div className="w-1.5 h-1.5 bg-background rounded-full"></div>
-                                        </div>
-                                        RepoAsContext • <span className="text-muted-grey font-normal">Just now</span>
+                                <div className="bg-card border border-border-dim rounded-[16px] p-5 w-full max-w-2xl mx-auto flex flex-col gap-3 shadow-sm">
+                                    <div className="text-[13px] font-medium text-foreground/90 flex items-center gap-2">
+                                        Model <span className="text-muted-grey text-[10px]">•</span> <span className="text-muted-grey font-normal">Just now</span>
                                     </div>
-                                    <div className="text-foreground text-[15px] space-y-4">
+                                    <div className="text-foreground text-[15px] leading-[1.6] space-y-4">
                                         <p>I tracked down the issue. In your <code className="bg-accent-bg px-1.5 py-0.5 rounded text-[13px]">stripeHandler.js</code> file, the exact exception occurs because the signature payload is parsed incorrectly.</p>
-                                        <div className="bg-background border border-border-dim rounded-lg p-4 font-mono text-[13px] text-muted-grey">
+                                        <div className="bg-background border border-border-dim rounded-lg p-4 font-mono text-[13px] text-muted-grey mt-3">
                                             <div className="text-[#a8c7fa] mb-1">// stripeHandler.js: L45-48</div>
                                             <div className="text-[#f87171] mb-1 line-through">- const sig = req.headers['stripe-signature'];</div>
                                             <div className="text-primary-green">+ const sig = req.headers['x-stripe-signature'];</div>
@@ -336,7 +361,64 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
+                            {/* Input box */}
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background via-background to-transparent pt-10 pb-6 px-10">
+                                <div className="bg-card border border-border-dim rounded-[24px] shadow-sm">
+                                    <div className="pl-5 pr-2 py-2 flex items-center justify-between min-h-[56px]">
+                                        <div className="text-muted-grey text-[15px]">Start typing a prompt...</div>
+                                        <div className="w-10 h-10 rounded-full bg-[#2d2e2f] flex items-center justify-center text-muted-grey">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+
+                        {/* Right Sidebar Mockup */}
+                        <aside className="w-[300px] bg-card border-l border-border-dim h-full hidden lg:flex flex-col shrink-0 text-left shadow-xl">
+                            <div className="h-[56px] border-b border-border-dim/50 flex items-center px-5 shrink-0">
+                                <span className="text-[15px] font-medium text-foreground">Run settings</span>
+                            </div>
+                            <div className="flex-1 p-5 space-y-6">
+                                <div className="bg-background rounded-xl border border-border-dim p-4 text-sm shadow-sm space-y-1.5">
+                                    <h3 className="text-foreground font-medium mb-1">Gemini 2.5 Flash</h3>
+                                    <p className="text-muted-grey text-[13px] leading-relaxed">
+                                        Fast, versatile model combining broad intelligence with long context supporting up to max 8192 tokens.
+                                    </p>
+                                </div>
+                                <div className="space-y-3">
+                                    <h3 className="text-[14px] font-medium text-foreground/90">Repository Context</h3>
+                                    <div className="space-y-2.5">
+                                        <div>
+                                            <label className="text-[11px] text-muted-grey uppercase tracking-wide px-1">Owner</label>
+                                            <div className="w-full bg-background border border-border-dim text-foreground rounded-lg px-3 py-2 text-[14px]">refrax-ai</div>
+                                        </div>
+                                        <div>
+                                            <label className="text-[11px] text-muted-grey uppercase tracking-wide px-1">Repository Name</label>
+                                            <div className="w-full bg-background border border-border-dim text-foreground rounded-lg px-3 py-2 text-[14px]">stripe-integration</div>
+                                        </div>
+                                        <div className="w-full bg-[#2d2e2f] text-foreground/50 font-medium py-2 rounded-lg text-sm text-center">Connected</div>
+                                    </div>
+                                </div>
+                                <div className="pt-2 border-t border-border-dim/70 space-y-1.5">
+                                    <div className="flex items-center justify-between mb-3 px-1">
+                                        <h3 className="text-[14px] font-medium text-foreground/90">File Explorer</h3>
+                                    </div>
+                                    <div className="bg-background rounded-lg border border-border-dim p-1.5 text-[13px] space-y-0.5">
+                                        <div className="flex items-center gap-2 px-2 py-1.5 bg-[#3b82f6]/10 text-[#60a5fa] rounded-md">
+                                            <span>🟨</span> stripeHandler.js
+                                        </div>
+                                        <div className="flex items-center gap-2 px-2 py-1.5 text-foreground/90 hover:bg-[#2d2e2f] rounded-md">
+                                            <span>📋</span> package.json
+                                        </div>
+                                        <div className="flex items-center gap-2 px-2 py-1.5 text-foreground/90 hover:bg-[#2d2e2f] rounded-md">
+                                            <span>📝</span> README.md
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
                     </div>
                 </div>
             </section>
@@ -375,10 +457,10 @@ export default function Home() {
                     {/* Brand / Logo */}
                     <div className="flex flex-col gap-2 col-span-1 md:col-span-1">
                         <div className="flex items-center gap-3 font-medium text-foreground/60 font-medium mb-1">
-                            <div className="bg-[#ff6600] text-white w-5 h-5 flex items-center justify-center font-bold text-[12px] shrink-0">Y</div>
-                            <span>YCombinator</span>
-                            <span className="text-muted-grey">|</span>
-                            <span>RepoAsContext Inc</span>
+                            <div className="bg-[#ff6600] text-white w-5 h-5 flex items-center justify-center font-bold text-[12px] shrink-0">V</div>
+                            <span>vipuldubey041@gmail.com</span>
+                            {/* <span className="text-muted-grey">|</span> */}
+                            {/* <span>RepoAsContext Inc</span> */}
                         </div>
                     </div>
 
