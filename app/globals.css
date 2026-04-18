@@ -3,24 +3,104 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card: #f8f9fa;
+  --card-foreground: #171717;
+  --border: #e2e8f0;
+  --primary: #6bb28b;
+  --muted: #8e8e8e;
+  --accent: #f0f0f0;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #111111;
+  --card-foreground: #ededed;
+  --border: #2d2e2f;
+  --primary: #6bb28b;
+  --muted: #8e8e8e;
+  --accent: #1e1f20;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border-dim: var(--border);
+  --color-primary-green: var(--primary);
+  --color-muted-grey: var(--muted);
+  --color-accent-bg: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes marqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@layer utilities {
+  .mask-image-edges {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+
+  .animate-marquee-left {
+    animation: marqueeLeft 35s linear infinite;
+  }
+
+  .animate-marquee-right {
+    animation: marqueeRight 35s linear infinite;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSubtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Thin Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
