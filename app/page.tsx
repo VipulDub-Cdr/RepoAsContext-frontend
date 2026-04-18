@@ -14,24 +14,24 @@ const RScript = Arimo({
 
 
 const MOCK_QUESTIONS_ROW_1 = [
-    { text: "Where is the Stripe webhook logic located?", img: "https://i.pravatar.cc/150?u=1" },
-    { text: "Explain the current Redux authentication flow.", img: "https://i.pravatar.cc/150?u=2" },
-    { text: "What does the getGithubTree function do?", img: "https://i.pravatar.cc/150?u=3" },
-    { text: "Find the Next.js routing middleware.", img: "https://i.pravatar.cc/150?u=4" },
-    { text: "How is the PostgreSQL database connected?", img: "https://i.pravatar.cc/150?u=5" },
+    { text: "How does the GitHub repository viewer fetch files?", answer: "It uses the GitHub REST API (specifically the Octokit SDK) to fetch repository trees and blob contents securely.", img: "https://i.pravatar.cc/150?u=1" },
+    { text: "Explain the email-based OTP verification flow.", answer: "When a user signs up, a 6-digit OTP is generated and sent via email. The session requires successful validation of this OTP before returning a JWT token.", img: "https://i.pravatar.cc/150?u=2" },
+    { text: "Where is the Gemini LLM integration located?", answer: "The Gemini integration is handled in the chatController, which connects user prompts and selected GitHub file contents to the Gemini 2.5 Flash model.", img: "https://i.pravatar.cc/150?u=3" },
+    { text: "Find the Next.js App Router configuration.", answer: "The App Router logic is located in the top-level app/ directory, utilizing page.tsx and layout.tsx definitions for routing.", img: "https://i.pravatar.cc/150?u=4" },
+    { text: "How is the PostgreSQL connection pooled?", answer: "The backend uses the pg package connected to an Express instance, allowing connection pooling for efficient concurrent database queries.", img: "https://i.pravatar.cc/150?u=5" },
 ];
 
 const MOCK_QUESTIONS_ROW_2 = [
-    { text: "Are there any hardcoded secrets in the backend?", img: "https://i.pravatar.cc/150?u=6" },
-    { text: "Why is the Tailwind styling not resolving?", img: "https://i.pravatar.cc/150?u=7" },
-    { text: "Summarize the GitController cache implementation.", img: "https://i.pravatar.cc/150?u=8" },
-    { text: "Trace the login failure to the database query.", img: "https://i.pravatar.cc/150?u=9" },
-    { text: "Generate unit tests for the chat route.", img: "https://i.pravatar.cc/150?u=10" },
+    { text: "Are there any leaked secrets in the backend code?", answer: "No, all sensitive variables like the GitHub token or database URI are securely stored as environment variables and never committed to version control.", img: "https://i.pravatar.cc/150?u=6" },
+    { text: "Why is the file injection context failing?", answer: "It fails if the requested string exceeds the token limits of the Gemini model or if the GitHub API rate limits the request. The application restricts the file size injected.", img: "https://i.pravatar.cc/150?u=7" },
+    { text: "Summarize the user authentication implementation.", answer: "The authentication combines an initial password check with an email OTP step. Verified sessions are maintained using JWTs in the frontend's local storage.", img: "https://i.pravatar.cc/150?u=8" },
+    { text: "Trace the OTP verification failure in the logs.", answer: "OTP failures usually map to user input mismatch or an expired token. The logs display 'Invalid OTP' while securely obfuscating the actual key.", img: "https://i.pravatar.cc/150?u=9" },
+    { text: "Generate unit tests for the chat generation route.", answer: "You can use Jest or Supertest to mock the Gemini model responses, ensuring the endpoint handles successful responses and unexpected timeouts properly.", img: "https://i.pravatar.cc/150?u=10" },
 ];
 
-function Pill({ q }: { q: { text: string; img: string } }) {
+function Pill({ q, onClick }: { q: { text: string; answer?: string; img: string }, onClick?: () => void }) {
     return (
-        <div className="flex items-center gap-3 bg-card border border-border-dim px-4 py-2.5 rounded-full shrink-0 shadow-sm hover:bg-accent-bg">
+        <div onClick={onClick} className="flex items-center gap-3 bg-card border border-border-dim px-4 py-2.5 rounded-full shrink-0 shadow-sm hover:bg-accent-bg cursor-pointer transition-colors">
             <img src={q.img} alt="Avatar" className="w-6 h-6 rounded-full opacity-80" />
             <span className="text-foreground font-light tracking-wide text-[15px]">{q.text}</span>
         </div>
@@ -39,11 +39,49 @@ function Pill({ q }: { q: { text: string; img: string } }) {
 }
 
 export default function Home() {
+    const [selectedQuestion, setSelectedQuestion] = useState<{ text: string; answer?: string; img: string } | null>(null);
 
-
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setSelectedQuestion(null);
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
     return (
         <main className={`min-h-screen bg-background text-foreground font-sans overflow-x-hidden selection:bg-primary-green/20 ${RScript.className}`}>
             <NetworkBackground />
+
+            {/* Modal */}
+            {selectedQuestion && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-background/80 backdrop-blur-sm cursor-pointer transition-opacity" onClick={() => setSelectedQuestion(null)} />
+                    <div className="bg-card border border-border-dim w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden animate-fade-in flex flex-col">
+                        <div className="p-6 border-b border-border-dim/50 flex flex-col gap-4">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <img src={selectedQuestion.img} alt="Avatar" className="w-8 h-8 rounded-full" />
+                                    <span className="text-foreground font-medium text-[15px]">User Query</span>
+                                </div>
+                                <button onClick={() => setSelectedQuestion(null)} className="text-muted-grey hover:text-foreground cursor-pointer">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                            <div className="text-foreground text-[16px] leading-relaxed font-light">
+                                {selectedQuestion.text}
+                            </div>
+                        </div>
+                        <div className="p-6 bg-accent-bg/50">
+                            <div className="flex items-center gap-3 mb-3">
+                                <span className="text-foreground font-medium text-[15px]">RepoAsContext Bot</span>
+                            </div>
+                            <div className="text-foreground/90 text-[15px] leading-[1.6]">
+                                {selectedQuestion.answer}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             {/* Hanging Dark Mega-Menu Header */}
             <div className="fixed top-4 sm:top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
                 <header className="w-full max-w-[800px] bg-card/60 backdrop-blur-xl pointer-events-auto rounded-2xl h-[72px] flex items-center justify-between px-6 shadow-[0_10px_40px_rgba(0,0,0,0.2)] relative">
@@ -111,21 +149,21 @@ export default function Home() {
 
                 <div className="flex flex-col gap-5 relative opacity-80" style={{ transitionDelay: "300ms" }}>
                     {/* Row 1 */}
-                    <div className="flex w-max shrink-0 animate-marquee-left gap-5 pr-5 h-14 text-2xl">
+                    <div className="flex w-max shrink-0 animate-marquee-left gap-5 pr-5 h-14 text-2xl hover:[animation-play-state:paused]">
                         {[...MOCK_QUESTIONS_ROW_1, ...MOCK_QUESTIONS_ROW_1, ...MOCK_QUESTIONS_ROW_1].map((q, i) => (
-                            <Pill key={`r1-${i}`} q={q} />
+                            <Pill key={`r1-${i}`} q={q} onClick={() => setSelectedQuestion(q)} />
                         ))}
                     </div>
                     {/* Row 2 */}
-                    <div className="flex w-max shrink-0 animate-marquee-right gap-5 pr-5 -ml-40 h-14 text-2xl">
+                    <div className="flex w-max shrink-0 animate-marquee-right gap-5 pr-5 -ml-40 h-14 text-2xl hover:[animation-play-state:paused]">
                         {[...MOCK_QUESTIONS_ROW_2, ...MOCK_QUESTIONS_ROW_2, ...MOCK_QUESTIONS_ROW_2].map((q, i) => (
-                            <Pill key={`r2-${i}`} q={q} />
+                            <Pill key={`r2-${i}`} q={q} onClick={() => setSelectedQuestion(q)} />
                         ))}
                     </div>
                     {/* Row 3 */}
-                    <div className="flex w-max shrink-0 animate-marquee-left gap-5 pr-5 h-14 text-2xl">
+                    <div className="flex w-max shrink-0 animate-marquee-left gap-5 pr-5 h-14 text-2xl hover:[animation-play-state:paused]">
                         {[...MOCK_QUESTIONS_ROW_1, ...MOCK_QUESTIONS_ROW_1, ...MOCK_QUESTIONS_ROW_1].map((q, i) => (
-                            <Pill key={`r1-${i}`} q={q} />
+                            <Pill key={`r3-${i}`} q={q} onClick={() => setSelectedQuestion(q)} />
                         ))}
                     </div>
                 </div>
@@ -215,7 +253,7 @@ export default function Home() {
                             </div>
 
                             <div className="flex gap-3">
-                                <div className="w-7 h-7 bg-foreground rounded-md flex items-center justify-center rotate-45 shrink-0 scale-75 mt-1">
+                                <div className="w-7 h-7 bg-foreground rounded-md animate-spin [animation-duration:2s] flex items-center justify-center rotate-45 shrink-0 scale-75 mt-1">
                                     <div className="w-2 h-2 bg-background rounded-full"></div>
                                 </div>
                                 <div>
@@ -241,16 +279,16 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[1100px] px-6 relative z-30">
-                    <div className="bg-card border border-border-dim rounded-3xl p-12 flex flex-col items-center hover:bg-accent-bg cursor-pointer group">
+                    <div className="bg-card border border-border-dim rounded-3xl p-12 flex flex-col items-center hover:bg-accent-bg cursor-pointer group transition-all delay-100 duration-200">
                         <h3 className="text-2xl font-medium tracking-tight mb-3 group-hover:text-foreground">GitHub API Integration</h3>
                         <p className="text-muted-grey font-light text-[15px] mb-12">Browse and inject files as LLM context</p>
 
-                        <div className="w-[120px] h-[70px] border border-border-dim bg-accent-bg rounded flex items-center justify-center text-primary-green font-mono text-sm tracking-widest relative">
+                        <div className="w-[300px] h-[70px] border border-border-dim bg-accent-bg rounded flex items-center justify-center text-primary-green font-mono text-sm tracking-widest relative">
                             {/* Circuit nodes mock */}
                             <div className="absolute -left-2 top-2 w-1 h-1 bg-border-dim"></div>
                             <div className="absolute -left-2 top-4 w-1 h-1 bg-border-dim"></div>
                             <div className="absolute -left-2 top-6 w-1 h-1 bg-border-dim"></div>
-                            OCTOKIT
+                            <div className="text-[10px] text-muted-grey">{"api.github.com/repos/${owner}/${repo}"}</div>
                             {/* Dotted green line connecting to nothing */}
                             <div className="absolute -right-[60px] top-1/2 border-t-2 border-dotted border-primary-green/50 w-[58px]"></div>
                         </div>
@@ -440,8 +478,8 @@ export default function Home() {
             {/* FINAL CTA & FOOTER */}
             <section className="w-full flex flex-col items-center pt-32 pb-16 bg-transparent relative overflow-hidden">
                 <div className=" flex flex-col items-center text-center px-4 max-w-2xl mb-40">
-                    <h2 className="text-[64px] font-medium tracking-tight leading-tight mb-4">
-                        Data on demand
+                    <h2 className="text-[50px] font-medium tracking-tight leading-tight mb-4">
+                        Start using RepoAsContext
                     </h2>
                     <p className="text-[20px] text-muted-grey font-light mb-10">
                         Get the answers you need, when it matters

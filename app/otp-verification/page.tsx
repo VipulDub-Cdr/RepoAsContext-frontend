@@ -7,8 +7,6 @@ import { NetworkBackground } from "@/components/NetworkBackground";
 
 function OtpForm() {
     const [otpInput, setOtpInput] = useState("");
-    const [toaster, setToaster] = useState(false);
-    const [toasterData, setToasterData] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,8 +17,6 @@ function OtpForm() {
     async function handleSubmit() {
         if (!otpInput) {
             setIsSuccess(false);
-            setToasterData("Please enter the OTP.");
-            setToaster(true);
             return;
         }
 
@@ -42,16 +38,8 @@ function OtpForm() {
             } else {
                 setIsSuccess(false);
             }
-
-            setToaster(true);
-            setToasterData(data.message);
-            setTimeout(() => {
-                setToaster(false);
-            }, 6000);
         } catch (err) {
             setIsSuccess(false);
-            setToasterData("Failed to verify OTP.");
-            setToaster(true);
         } finally {
             setIsLoading(false);
         }
@@ -78,12 +66,6 @@ function OtpForm() {
                     We sent a verification code to <br />
                     <span className="font-medium text-white">{email || "your email"}</span>
                 </p>
-
-                {toaster && (
-                    <div className={`mb-6 p-3 animate-pulse-subtle rounded-lg border text-sm text-center ${isSuccess ? 'bg-[#1a2e22] border-[#2e5c41] text-[#6bb28b]' : 'bg-[#2a1313] border-[#5c2e2e] text-[#f87171]'}`}>
-                        {toasterData}
-                    </div>
-                )}
 
                 <div className="flex flex-col gap-6 w-full text-left">
                     <div>
